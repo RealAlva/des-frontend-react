@@ -1,13 +1,16 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom'; // Import BrowserRouter
-import RouterConfig from './router/router'; // Asegura que estás usando tu configuración de rutas
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import DictionaryScreen from './screens/dictionary/DictionaryScreen';
+import ProductsScreen from './screens/Product';
+import LoginForm from './screens/Forms/LoginForm';
+import RouterConfig from './router/router';
 
 const App = () => {
   return (
-    <BrowserRouter basename="/des-frontend-react">
-      {/* Aquí incluyes tu RouterConfig que contiene las rutas */}
-      <RouterConfig />
-    </BrowserRouter>
+    <div>
+      <RouterConfig /> {/* Ensure Router is only declared here */}
+    </div>
   );
 };
 
