@@ -8,7 +8,7 @@ import Navbar from '../components/Navbar';
 
 const RouterConfig = () => {
   return (
-    <BrowserRouter basename="/des-frontend-react">
+    <BrowserRouter basename="/des-frontend-react/dictionary"> {/* Ensure correct base path */}
       <Navbar />
       <Routes>
         <Route path="/" element={<MainPage />} />
