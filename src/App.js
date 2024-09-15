@@ -1,28 +1,14 @@
-import './App.css';
-import Navbar from "./components/Navbar";
-import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
-import DictionaryScreen from './screens/dictionary/DictionaryScreen';
-import Home from './screens/Products/_componentes/Home';  // Asegúrate de que la ruta sea correcta
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom'; // Import BrowserRouter
+import RouterConfig from './router/router'; // Asegura que estás usando tu configuración de rutas
 
-function App() {
+const App = () => {
   return (
-    <Router basename="/des-frontend-react">
-      {/* Mantener la barra de navegación global */}
-      <Navbar />
-
-      {/* Configuración de las rutas */}
-      <Routes>
-        {/* Ruta del nuevo módulo dictionary */}
-        <Route path="/dictionary" element={<DictionaryScreen />} />
-        
-        {/* Ruta principal para Home */}
-        <Route path="/" element={<Home />} />
-        
-        {/* Rutas dinámicas (cualquier otra ruta) */}
-        <Route path="/*" element={<Outlet />} />
-      </Routes>
-    </Router>
+    <BrowserRouter basename="/des-frontend-react">
+      {/* Aquí incluyes tu RouterConfig que contiene las rutas */}
+      <RouterConfig />
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

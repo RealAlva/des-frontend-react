@@ -1,25 +1,16 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/Navbar.css';
 
 const Navbar = () => {
     return (
-        <nav>
+        <nav className="navbar">
             <ul>
-                <li>
-                    <Link to="/">Home</Link>
-                </li>
-                <li>
-                    <Link to="/default">Default</Link>
-                </li>
-                <li>
-                    <Link to="/products">Product</Link>
-                </li>
-                <li>
-                    <Link to="/login">LoginForm</Link>
-                </li>
-                <li>
-                    <Link to="/dictionary">Dictionary</Link>  {/* Añadimos la nueva ruta */}
-                </li>
+                <li><Link to="/des-frontend-react">Home</Link></li>
+                <li><Link to="/product">Product</Link></li>
+                <li><Link to="/forms">Forms</Link></li>
             </ul>
+            <span>Bienvenido :</span>
         </nav>
     );
 };

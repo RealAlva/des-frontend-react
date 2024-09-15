@@ -1,0 +1,38 @@
+.main-page {
+    padding: 20px;
+    text-align: left;
+  }
+  
+  .header-section {
+    background-color: #228B22;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .welcome-section {
+    margin-top: 20px;
+    padding: 10px;
+  }
+  
+  .topics-section {
+    margin-top: 20px;
+    padding: 10px;
+  }
+  
+  .resources-section {
+    margin-top: 20px;
+    padding: 10px;
+  }
+  
+  .topics-table th {
+    font-weight: normal;  /* Remover negrita general */
+  }
+
+  /* Añadir este estilo para la línea verde */
+  .green-line {
+    border: 0;
+    height: 2px;
+    background-color: #228B22;  /* Verde especificado */
+    margin: 10px 0;
+  }

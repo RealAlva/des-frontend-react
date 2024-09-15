@@ -1,106 +1,64 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addWord, removeWord, translateWord } from '../../redux/dictionary/dictionarySlice';
-import './DictionaryScreen.css';
+import { useSelector } from 'react-redux';
+import DictionaryEntry from '../../components/dictionary/DictionaryEntry';  
+import ModalAgregarPalabra from '../../components/dictionary/ModalAgregarPalabra';  
+import ModalEliminarPalabra from '../../components/dictionary/ModalEliminarPalabra';  
+import ModalTraducirPalabra from '../../components/dictionary/ModalTraducirPalabra';  
+import styles from './DictionaryScreen.module.css';
 
 const DictionaryScreen = () => {
-  const [word, setWord] = useState(''); // Maneja la palabra en inglés
-  const [translation, setTranslation] = useState({ es: '', en: '', pt: '' }); // Traducciones
-  const [inputWord, setInputWord] = useState(''); // Para eliminar/traducir palabras
-  const [translatedWord, setTranslatedWord] = useState(''); // Para mostrar la traducción
-  const dispatch = useDispatch();
-  
-  // Obtener la lista de palabras del estado de Redux
-  const words = useSelector(state => state.dictionary.words);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);  
+  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);  
+  const [isTranslateModalOpen, setIsTranslateModalOpen] = useState(false);  
+  const [selectedTerm, setSelectedTerm] = useState('');  
 
-  // Función para agregar una nueva palabra al diccionario
-  const handleAddWord = () => {
-    dispatch(addWord({ word, translations: translation }));
-    setWord('');
-    setTranslation({ es: '', en: '', pt: '' });
-  };
+  const { entries = [] } = useSelector(state => state.dictionary || {});  
 
-  // Función para eliminar una palabra del diccionario
-  const handleRemoveWord = () => {
-    dispatch(removeWord(inputWord));
-    setInputWord('');
-  };
+  const handleOpenAddModal = () => setIsAddModalOpen(true);
+  const handleCloseAddModal = () => setIsAddModalOpen(false);
 
-  // Función para traducir una palabra en el diccionario
-  const handleTranslateWord = () => {
-    const result = dispatch(translateWord(inputWord));
-    if (result) {
-      setTranslatedWord(`Spanish: ${result.es}, English: ${result.en}, Portuguese: ${result.pt}`);
-    } else {
-      setTranslatedWord('Word not found.');
-    }
-  };
+  const handleOpenRemoveModal = () => setIsRemoveModalOpen(true);
+  const handleCloseRemoveModal = () => setIsRemoveModalOpen(false);
+
+  const handleOpenTranslateModal = () => setIsTranslateModalOpen(true);
+  const handleCloseTranslateModal = () => setIsTranslateModalOpen(false);
 
   return (
-    <div className="dictionary">
-      <h2>Dictionary Module</h2>
-      
-      {/* Formulario para agregar palabra */}
-      <div>
-        <input
-          type="text"
-          value={word}
-          onChange={(e) => setWord(e.target.value)}
-          placeholder="Word in English"
-        />
-        <input
-          type="text"
-          value={translation.es}
-          onChange={(e) => setTranslation({ ...translation, es: e.target.value })}
-          placeholder="Word in Spanish"
-        />
-        <input
-          type="text"
-          value={translation.pt}
-          onChange={(e) => setTranslation({ ...translation, pt: e.target.value })}
-          placeholder="Word in Portuguese"
-        />
-        <button onClick={handleAddWord}>Add Word</button>
+    <div className={styles.dictionaryContainer}>
+      <h1 className={styles.title}>DICTIONARY USIP</h1>
+      <p className={styles.description}>
+        Este <span className={styles.boldText}>módulo(diccionario)</span> corresponde al <span className={styles.boldText}>recuperatorio del</span> <span className={styles.redText}>modulo-7</span> ReactJS. 
+        <span className={styles.boldUrl}>URL:</span>
+        <a href="https://RealAlva.github.io/des-frontend-react" className={styles.url}>https://RealAlva.github.io/des-frontend-react</a>
+      </p>
+
+      {/* Dictionary Entries List */}
+      <div className={styles.entriesList}>
+        {entries.map((entry, index) => (
+          <DictionaryEntry 
+            key={index} 
+            term={entry.term} 
+            definition={entry.definition}
+            onClick={() => setSelectedTerm(entry.term)}  
+          />
+        ))}
       </div>
 
-      {/* Formulario para eliminar palabra */}
-      <div>
-        <input
-          type="text"
-          value={inputWord}
-          onChange={(e) => setInputWord(e.target.value)}
-          placeholder="Word to Remove"
-        />
-        <button onClick={handleRemoveWord}>Remove Word</button>
+      {/* Button Group */}
+      <div className={styles.buttonGroup}>
+        <div className={styles.topRow}>
+          <button className={styles.button} onClick={handleOpenAddModal}>Agregar Palabra</button>
+          <button className={styles.button} onClick={handleOpenRemoveModal}>Eliminar Palabra</button>
+        </div>
+        <div className={styles.bottomRow}>
+          <button className={styles.button} onClick={handleOpenTranslateModal}>Traducir Palabra</button>
+        </div>
       </div>
 
-      {/* Formulario para traducir palabra */}
-      <div>
-        <input
-          type="text"
-          value={inputWord}
-          onChange={(e) => setInputWord(e.target.value)}
-          placeholder="Word to Translate"
-        />
-        <button onClick={handleTranslateWord}>Translate Word</button>
-        {translatedWord && <textarea readOnly value={translatedWord} />}
-      </div>
-
-      {/* Mostrar lista de palabras almacenadas en el diccionario */}
-      <div className="word-list">
-        <h3>Current Words in Dictionary</h3>
-        {words && words.length > 0 ? (
-          <ul>
-            {words.map((wordItem, index) => (
-              <li key={index}>
-                {wordItem.word} - Spanish: {wordItem.translations.es}, English: {wordItem.translations.en}, Portuguese: {wordItem.translations.pt}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No words available</p>
-        )}
-      </div>
+      {/* Modals */}
+      {isAddModalOpen && <ModalAgregarPalabra closeModal={handleCloseAddModal} />}
+      {isRemoveModalOpen && <ModalEliminarPalabra closeModal={handleCloseRemoveModal} />}
+      {isTranslateModalOpen && <ModalTraducirPalabra closeModal={handleCloseTranslateModal} />}
     </div>
   );
 };

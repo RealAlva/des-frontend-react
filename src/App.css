@@ -37,6 +37,7 @@
   }
 }
 
+/* Navbar styles */
 nav {
   background-color: #333;
   padding: 1rem;
@@ -64,7 +65,18 @@ a:hover {
   color: #ffcc00;
 }
 
-/* styles forms*/
+/* Footer styles */
+footer {
+  background-color: #282c34;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+/* Styles for forms */
 .container {
   display: flex;
   justify-content: center;
@@ -119,9 +131,8 @@ form div input {
   font-size: 16px;
   margin-top: 10px;
 }
-/* styles forms*/
 
-/* styles for modals */
+/* Styles for modals */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -157,4 +168,3 @@ form div input {
   font-size: 1.5rem;
   cursor: pointer;
 }
-/* styles for modals */

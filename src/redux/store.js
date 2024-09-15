@@ -1,17 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import dictionaryReducer from './dictionary/dictionarySlice';
-// Mantener el rootReducer existente
-import rootReducer from './reducers';
+import dictionaryReducer from './dictionary/dictionaryReducer';  // Import the dictionary reducer
+import rootReducer from './reducers';  // Import the root reducer containing other reducers
 
-// Combina el rootReducer existente con el nuevo reducer 'dictionary'
+// Consolidating the root reducer and dictionary reducer
 const combinedReducer = {
-  ...rootReducer,          // Mantenemos los reducers existentes
-  dictionary: dictionaryReducer,  // Añadimos el nuevo reducer 'dictionary'
+  ...rootReducer,  // Preserve existing reducers from rootReducer
+  dictionary: dictionaryReducer,  // Add the dictionary reducer for dictionary state
 };
 
-// Configurar el store usando configureStore de Redux Toolkit
-export const store = configureStore({
-  reducer: combinedReducer,  // Pasamos los reducers combinados
+// Configure the Redux store with the combined reducers
+const store = configureStore({
+  reducer: combinedReducer,  // Pass the combined reducers to the store
 });
 
 export default store;

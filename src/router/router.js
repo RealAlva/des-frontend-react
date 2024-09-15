@@ -1,36 +1,24 @@
-import { createBrowserRouter } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import DictionaryScreen from '../screens/dictionary/DictionaryScreen';
+import ProductsScreen from '../screens/Product';
+import LoginForm from '../screens/Forms/LoginForm';
+import MainPage from '../components/MainPage';
+import Navbar from '../components/Navbar';
 
-import Default from "../screens/Default";
-import Product from "../screens/Product";
-import LoginForm from "../screens/Forms/LoginForm";
+const RouterConfig = () => {
+  return (
+    <BrowserRouter basename="/des-frontend-react">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/main" element={<MainPage />} />
+        <Route path="/products" element={<ProductsScreen />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/dictionary" element={<DictionaryScreen />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-import App from "../App";
-
-const basename = process.env.NODE_ENV === 'production' ? '/desarrollo-frontend-react' : '/';
-
-const routes = createBrowserRouter([
-    {
-        path: '/',
-        element: <App />,
-        children: [
-            {
-                path: '/default',
-                element: <Default />,
-            },
-            {
-                path: '/products',
-                element: <Product />,
-            },
-            {
-                path: '/login',
-                element: <LoginForm />,
-            },
-        ]
-    }
-],
-    {
-        basename:    basename
-    }
-);
-
-export default routes;
+export default RouterConfig;
